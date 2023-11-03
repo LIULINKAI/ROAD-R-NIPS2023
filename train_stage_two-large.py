@@ -48,7 +48,8 @@ def arg_parse(func):
     parser.add_argument('--model', default='vit_clip_pro', help='model name')
     parser.add_argument('--head_mode', default='2d', help='model name')
     parser.add_argument('--pretrain', default='', help='pretrain weight path')
-    parser.add_argument('--epoch', type=int, default=10, help='number of epoch to train')
+    parser.add_argument('--epoch', type=int, default=3, help='number of epoch to train')
+    parser.add_argument('--start_epoch', type=int, default=1, help='number of epoch to train')
     parser.add_argument('--lr', type=float, default=1e-4, help='initial learning_rate')
     parser.add_argument("--batch_size", type=int, default=2, help='the batch for id')
     parser.add_argument("--seed", type=int, default=0, help='random seed')
@@ -107,43 +108,42 @@ def logger_init(args):
 
 def model_init(args):
     if args.resume:
-        model = torch.load("./runs/{}/weight/best_weight.pt".format(args.resume))
-        return model
+        model = torch.load("./runs/{}/weight/best_acc_weight.pt".format(args.resume))
+    else:
+        args.input_shape = [int(args.input_shape[0]), int(args.input_shape[1])]
+        if "swin" in args.model or "vit" in args.model:
+            assert args.input_shape[0] == args.input_shape[1]
 
-    args.input_shape = [int(args.input_shape[0]), int(args.input_shape[1])]
-    if "swin" in args.model or "vit" in args.model:
-        assert args.input_shape[0] == args.input_shape[1]
-
-    if args.model == 'vit_clip': # broken
-        model = ViTCLIPClassifier_location_base(
-            input_resolution=args.input_shape[0],
-            num_frames=args.window_size, 
-            patch_size=16,
-            width=768,
-            layers=12,
-            heads=12,
-            num_classes=args.num_class,
-            drop_path_rate=0.2, 
-            adapter_scale=0.5,
-            head_type=args.head_mode,
-            pretrained="ViT-B/16",
-            use_local=args.use_local
-            )
-    elif args.model == 'vit_clip_pro':
-        model = ViTCLIPClassifier_location_pro(
-            input_resolution=args.input_shape[0],
-            num_frames=int(args.window_size), 
-            patch_size=14,
-            width=1024,
-            layers=24,
-            heads=16,
-            num_classes=args.num_class,
-            drop_path_rate=0.2, 
-            adapter_scale=0.5,
-            head_type=args.head_mode,
-            pretrained="ViT-L/14",
-            use_local=args.use_local
-            )
+        if args.model == 'vit_clip': # broken
+            model = ViTCLIPClassifier_location_base(
+                input_resolution=args.input_shape[0],
+                num_frames=args.window_size, 
+                patch_size=16,
+                width=768,
+                layers=12,
+                heads=12,
+                num_classes=args.num_class,
+                drop_path_rate=0.2, 
+                adapter_scale=0.5,
+                head_type=args.head_mode,
+                pretrained="ViT-B/16",
+                use_local=args.use_local
+                )
+        elif args.model == 'vit_clip_pro':
+            model = ViTCLIPClassifier_location_pro(
+                input_resolution=args.input_shape[0],
+                num_frames=int(args.window_size), 
+                patch_size=14,
+                width=1024,
+                layers=24,
+                heads=16,
+                num_classes=args.num_class,
+                drop_path_rate=0.2, 
+                adapter_scale=0.5,
+                head_type=args.head_mode,
+                pretrained="ViT-L/14",
+                use_local=args.use_local
+                )
     for name, param in model.named_parameters():
         if 'to_hide' not in name and 'location_embedding' not in name and 'agent_embedding' not in name and 'bbox_embedding' not in name and 'temporal_embedding' not in name and 'ln_post' not in name and 'cls_head' not in name and 'Adapter' not in name:
             param.requires_grad = False
@@ -273,7 +273,7 @@ def main():
 
     logger.info("----------------")
     best_loss, best_acc = 999., 0.0
-    for epoch in range(1, args.epoch+1):
+    for epoch in range(args.start_epoch, args.epoch+1):
         train_loss, train_acc = train_loc(args, model, train_loader, optimizer, criterion, epoch, writer)
         # testing
         test_loss, test_acc, preds, labels = test_loc(args, model, test_loader, criterion, epoch)

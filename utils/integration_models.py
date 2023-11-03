@@ -3,7 +3,7 @@ import os
 import numpy as np
 import json
 from tqdm import tqdm
-pkldirs = "utils/test-merge-v2"
+pkldirs = "utils/val-merge"
 pkl_list = os.listdir(pkldirs)
 all_data = []
 for pklname in pkl_list:
@@ -11,7 +11,7 @@ for pklname in pkl_list:
     with open(pklpath, 'rb') as f:
         data = pickle.load(f)
         all_data.append(data)
-bestlocation = "utils/best_location.pkl"
+bestlocation = "pred_detections-01-08-50_val_1.pkl"
 with open(bestlocation, 'rb') as f:
     locationdata = pickle.load(f)
 

@@ -4,7 +4,7 @@ import os
 import numpy as np
 import json
 from tqdm import tqdm
-def get_req_conf(label_conf):
+def get_req_conf(label_conf, must_no_cls_ids, must_true_cls_ids):
     new_label_conf = label_conf.copy()
     agent_id = np.argmax(label_conf[:10]) + 1
     down_weight = 1.0 - new_label_conf[agent_id-1]
@@ -45,8 +45,8 @@ def get_req_conf(label_conf):
                 return new_label_conf
     return []
     
-if __name__ == '__main__':
-    with open(r'submit-task1-v1.pkl', 'rb') as f:
+def make_require(before_pkl, after_pkl):
+    with open(before_pkl, 'rb') as f:
         data = pickle.load(f)
     req_path = "requirements/requirements_dimacs.txt"
     f = open(req_path, 'r')
@@ -74,7 +74,7 @@ if __name__ == '__main__':
             for tube_idx, tube_info in enumerate(data[video_name][frame_key]):
                 label_conf = tube_info['labels']
                 bbox = tube_info['bbox']
-                new_label_conf = get_req_conf(label_conf)
+                new_label_conf = get_req_conf(label_conf, must_no_cls_ids, must_true_cls_ids)
                 if len(new_label_conf) == -1:
                     continue
                 new_tube_list.append({
@@ -83,5 +83,11 @@ if __name__ == '__main__':
                 })
             data[video_name][frame_key] = new_tube_list
     
-    with open("submit-require-task1.pkl", 'wb') as f:
+    with open(after_pkl, 'wb') as f:
             pickle.dump(data, f)
+    return after_pkl
+
+if __name__ == '__main__':
+    before_require_pkl = 'output/val_1/val_1_vitcliplarge-base-yolov8-bestacc/2023-11-02-15-38-30/val_1_vitcliplarge-base-yolov8-bestacc.pkl'
+    after_require_pkl = 'utils/submit-require-task1.pkl'
+    make_require(before_pkl=before_require_pkl, after_pkl=after_require_pkl)

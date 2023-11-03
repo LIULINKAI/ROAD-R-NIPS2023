@@ -45,7 +45,7 @@ if __name__ == '__main__':
     img_height = 960
     # pseudo_ratio = 0.2
     # min_pseudo_num = 
-    pseudo_label_dir = "output/val_1/2023-10-24-23-59-40"
+    pseudo_label_dir = "output/get_label/get_label_vitcliplarge-base-yolov8-bestacc/2023-11-02-19-05-57"
     task1_labels = ["2014-07-14-14-49-50_stereo_centre_01","2015-02-03-19-43-11_stereo_centre_04","2015-02-24-12-32-19_stereo_centre_04"]
     pseudo_video_names = [
         '2014-06-25-16-45-34_stereo_centre_02',
