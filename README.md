@@ -88,11 +88,11 @@ Specify the path of "best-v2.pt" in "inference-stage-two-no-agent-id.py" and run
 
 Use the baseline source code (https://github.com/mihaela-stoian/ROAD-R-2023-Challenge) to generate Version 3 of the .pkl file.
 
-### Step-12: Integration of Versions (Version 4):
+### Step-12: Integration of Versions 1-3 (Version 4):
 
 Place the .pkl files from Versions 1 and 2 in the "test-merge" folder. Specify "pkldirs" in "integration_models.py" as the "test-merge" folder path and "bestlocation" as the path to the Version 3 .pkl file. Run "integration_models.py" to obtain "submit-task1.pkl." Adjust ["utils/submit_requirement_for_task1.py"](utils/submit_requirement_for_task1.py) to get Version 4 of the .pkl file.
 
-### Step-13: Integration without Versions (Version 5):
+### Step-13: Integration of Versions 1-2 (Version 5):
 
 Place the .pkl files from Versions 1 and 2 in the "test-merge" folder. Specify "pkldirs" in "integration_models.py" as the "test-merge" folder path and comment out lines 78-92 in "integration_models.py" to obtain a new "submit-task1.pkl." Adjust ["utils/submit_requirement_for_task1.py"](utils/submit_requirement_for_task1.py) to get Version 5 of the .pkl file.
 
