@@ -79,7 +79,7 @@ python semi-yolov8.py
 
 ### Step-10: Inference with best-v2 Model (Version 2)
 ```
-python inference-stage-two-no-agent-id.py --yolo_path runs/detect/yolov8l_semi_1280_batch_4_agent/weights/best.pt --classifier_path runs/exp-stage2-vit_clip-2023-10-21-22_46_31/weight/best_acc_weight.pt  --windows_size 4 --yolo_name base --test_mode test
+python inference-stage-two-no-agent-id.py --yolo_path runs/detect/yolov8l_semi_1280_batch_4_agent/weights/best.pt --classifier_path runs/exp-stage2-vit_clip-2023-10-21-22_46_31/weight/best_acc_weight.pt  --windows_size 4 --yolo_name semi --test_mode test
 ```
 Specify the path of "best-v2.pt" in "inference-stage-two-no-agent-id.py" and run inference on the test set video data again. Adjust "[utils/submit_requirement_for_task1.py](utils/submit_requirement_for_task1.py)" to obtain Version 2 of the .pkl file.
 [submit_requirement_for_task1.py](utils/submit_requirement_for_task1.py) is used to post-process the prediction results according to the logical constraints in [requirements](requirements/requirements_dimacs.txt).
