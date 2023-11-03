@@ -65,7 +65,7 @@ python inference-stage-two-no-agent-id.py --yolo_path runs/detect/yolov8l_base_1
 ```
 Run the ["inference-stage-two-no-agent-id.py"](inference-stage-two-no-agent-id.py) script to perform inference on the test set video data, generating a .pkl file in the output folder.
 
-## Step-7: Submission of Results (Version 1)
+### Step-7: Submission of Results (Version 1)
 Copy the path to the .pkl file and execute ["utils/submit_requirement_for_task1.py"](utils/submit_requirement_for_task1.py) to obtain results that align with the [243 logical constraints](requirements/requirements_readable.txt). Package the final output .pkl file into a .zip file and submit it.
 
 ### Step-8: Pseudo Labeling and Fine-Tuning
