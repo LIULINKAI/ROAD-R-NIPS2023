@@ -76,7 +76,7 @@ Use the mixed semi-datasets for fine-tuning the "best.pt" model from Step 2 for 
 ```
 python semi-yolov8.py
 ```
-
+![Alt text](images/semi-results.png)
 ### Step-10: Inference with best-v2 Model (Version 2)
 ```
 python inference-stage-two-no-agent-id.py --yolo_path runs/detect/yolov8l_semi_1280_batch_4_agent/weights/best.pt --classifier_path runs/exp-stage2-vit_clip-2023-10-21-22_46_31/weight/best_acc_weight.pt  --windows_size 4 --yolo_name semi --test_mode test
@@ -97,15 +97,15 @@ Place the .pkl files from Versions 1 and 2 in the "test-merge" folder. Specify "
 Place the .pkl files from Versions 1 and 2 in the "test-merge" folder. Specify "pkldirs" in "integration_models.py" as the "test-merge" folder path and comment out lines 78-92 in "integration_models.py" to obtain a new "submit-task1.pkl." Adjust ["utils/submit_requirement_for_task1.py"](utils/submit_requirement_for_task1.py) to get Version 5 of the .pkl file.
 
 ## Results
-We are using three videos in "val_1" to evaluate our method. The evaluation code is ["utils/eval_mAP.py"](utils/eval_mAP.py). The comparison results are as follows: ("-" means it is under testing and will be released soon.)
+We are using three videos in "val_1" to evaluate our method. The evaluation code is ["utils/eval_mAP.py"](utils/eval_mAP.py). The comparison results are as follows: 
 
 |    Method    | f-mAP@0.5 | agent mAP | action mAP | location mAP |
 |:------------:|:---------:|:---------:|:----------:|:------------:|
 | [3D-RetinaNet (Version 3)](https://github.com/mihaela-stoian/ROAD-R-2023-Challenge) |    0.180   |    0.251   |    0.130    |     0.199     |
 |  Ours (Version 1) |    0.282   |    0.466   |    0.205    |     0.250     |
-|  Ours (Version 2) |      -     |       -    |       -     |       -       |
-|  Ours (Version 4) |    -   |    -   |    -    |     -     |
-|  Ours (Version 5) |    -    |     -   |    -    |     -     |
+|  Ours (Version 2) |    0.291   |    0.480   |    **0.212**    |     0.259     |
+|  Ours (Version 4) |    **0.293**   |    **0.484**   |    0.211    |     **0.264**     |
+|  Ours (Version 5) |    0.291   |    **0.484**   |    0.211    |     0.258     |
 
 
 ## Requirement
