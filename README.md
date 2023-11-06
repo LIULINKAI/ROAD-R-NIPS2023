@@ -97,6 +97,7 @@ Place the .pkl files from Versions 1 and 2 in the "test-merge" folder. Specify "
 Place the .pkl files from Versions 1 and 2 in the "test-merge" folder. Specify "pkldirs" in "integration_models.py" as the "test-merge" folder path and comment out lines 78-92 in "integration_models.py" to obtain a new "submit-task1.pkl." Adjust ["utils/submit_requirement_for_task1.py"](utils/submit_requirement_for_task1.py) to get Version 5 of the .pkl file.
 
 ## Results
+### Validation
 We are using three videos in "val_1" to evaluate our method. The evaluation code is ["utils/eval_mAP.py"](utils/eval_mAP.py). The comparison results are as follows: 
 
 |    Method    | f-mAP@0.5 | agent mAP | action mAP | location mAP |
@@ -106,6 +107,14 @@ We are using three videos in "val_1" to evaluate our method. The evaluation code
 |  Ours (Version 2) |    0.291   |    0.480   |    **0.212**    |     0.259     |
 |  Ours (Version 4) |    **0.293**   |    **0.484**   |    0.211    |     **0.264**     |
 |  Ours (Version 5) |    0.291   |    **0.484**   |    0.211    |     0.258     |
+### Test
+|    Method    | f-mAP@0.5 location mAP |
+|:------------:|:---------:|
+| [3D-RetinaNet (Version 3)](https://github.com/mihaela-stoian/ROAD-R-2023-Challenge) |   0.180    |       
+|  Ours (Version 1) |   0.281    |
+|  Ours (Version 2) |   0.298    |
+|  Ours (Version 4) |   **0.303**    |
+|  Ours (Version 5) |   0.302    |
 
 
 ## Requirement
