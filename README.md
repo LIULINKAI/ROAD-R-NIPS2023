@@ -108,7 +108,7 @@ We are using three videos in "val_1" to evaluate our method. The evaluation code
 |  Ours (Version 4) |    **0.293**   |    **0.484**   |    0.211    |     **0.264**     |
 |  Ours (Version 5) |    0.291   |    **0.484**   |    0.211    |     0.258     |
 ### Test
-|    Method    | f-mAP@0.5 location mAP |
+|    Method    | f-mAP@0.5 |
 |:------------:|:---------:|
 | [3D-RetinaNet (Version 3)](https://github.com/mihaela-stoian/ROAD-R-2023-Challenge) |   0.180    |       
 |  Ours (Version 1) |   0.281    |
